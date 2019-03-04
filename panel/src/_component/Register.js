@@ -27,7 +27,7 @@ class Register extends Component {
 
 
     onSubmit = (e) => {
-        // e.preventDefault()
+        e.preventDefault()
         const user = {
             username: this.state.username,
             password: this.state.password,
@@ -107,7 +107,7 @@ class Register extends Component {
                             <span className="focus-input100"></span>
                         </div>
                         <div className="container-login100-form-btn">
-                            <button className="login100-form-btn my-4" type="submit">
+                            <button className="login100-form-btn my-4" type="submit" onSubmit={this.onSubmit}>
                                 Sign Up
 					</button>
                         </div>
