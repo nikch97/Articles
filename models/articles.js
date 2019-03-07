@@ -8,11 +8,11 @@ const article = new Schema({
         required: true
     },
     username: {
-        type: Schema.Types.ObjectId,
-        ref: 'user'
+        type: String,
+        // ref: 'users'
     },
 
-    date: Date,
+    date: String,
 
     text: String,
     pic: String
