@@ -32,7 +32,8 @@
                         </button>
                         <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                             <ul class="nav navbar-nav menu_nav">
-                                <li class="nav-item"><a class="nav-link" href="/users/new-article">Add new article</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/users/new-article">Add new article</a>
+                                </li>
                                 <li class="nav-item"><a class="nav-link" href="category.html">Category</a></li>
                                 <li class="nav-item active"><a class="nav-link" href="archive.html">Archive</a></li>
                                 <li class="nav-item submenu dropdown">
@@ -79,23 +80,26 @@
                     <div class="col-lg-12">
                         <div class="blog_left_sidebar">
                             <div class="row">
-                                  <%data.forEach(function(dt){%>
+                                <%data.forEach(function(dt){%>
                                 <div class="col-md-6">
                                     <article class="blog_style1 small">
                                         <div class="blog_img">
-                                            <img class="img-fluid" src="img/home-blog/blog-small-1.jpg" alt="" />
+                                            <img class="img-fluid" src="<%=dt.pic%>" alt="" />
                                         </div>
                                         <div class="blog_text">
-                                            <div class="blog_text_inner">
-                                                <a class="cat" href="#">Gadgets</a>
+                                            <div class="blog_text_inner"> <a href="edit-article/<%=dt.title%>"
+                                                    class="genric-btn primary circle arrow" target="_blank">Edit</a>
+                                                    <a href="<%=dt.title%>" class="genric-btn danger circle arrow" >Delete</a>
+
                                                 <a href="#">
-                                                    <h4>2nd Gen Smoke Co Bomb Alarm integration</h4>
+                                                    <h4><%=dt.title%></h4>
                                                 </a>
                                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
                                                     eiusmod
                                                     tempor incididunt ut labore.</p>
                                                 <div class="date">
-                                                    <a href="#"><i class="fa fa-calendar" aria-hidden="true"></i> <%=dt.date%></a>
+                                                    <a href="#"><i class="fa fa-calendar" aria-hidden="true"></i>
+                                                        <%=dt.date%></a>
                                                     <a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i>
                                                         05</a>
                                                 </div>
@@ -104,12 +108,6 @@
                                     </article>
                                 </div>
                                 <%})%>
-
-
-
-
-
-
 
                             </div>
 

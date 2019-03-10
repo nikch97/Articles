@@ -160,7 +160,7 @@ router.post('/new-article', artload.single('file'), function (req, res, next) {
     // author: decoded.username,
     // username: BODY.username,
     text: BODY.text,
-    pic: 'images/articles/' + req.file.originalname,
+    pic: '/images/articles/' + FILE.originalname,
     date: time()
   }
 
@@ -183,16 +183,82 @@ router.get('/articles', function (req, res) {
     res.render('articles.ejs', {
       data
     })
-  }).sort({date:-1})
+  }).sort({ date: -1 })
 })
 
 router.get('/new-article', function (req, res) {
-  
-    res.render('new article.ejs', {
-    
+
+  res.render('new article.ejs', {
+
   })
 })
 
+
+router.get('/articles', function (req, res) {
+  Article.find({}, function (err, data) {
+    if (err) { res.send(err) }
+
+    res.render('articles.ejs', {
+      data
+    })
+  }).sort({ date: -1 })
+
+})
+
+router.get('/:title', function (req, res) {
+  let title = req.params.title
+  Article.deleteOne({ title: title }, (err, data) => {
+    console.log(req.body)
+    if (err) { res.send(err) }
+    res.redirect('/users/articles')
+  })
+})
+
+
+
+
+router.get('/edit-article/:title', function (req, res) {
+  let title = req.params.title
+  Article.findOne({ title: title }, (err, data) => {
+    console.log(req.body)
+    if (err) { res.send(err) }
+    res.render('edit article.ejs', {
+      data
+    })
+  })
+})
+
+
+router.post('/edit-article/:title', artload.single('file'), (req, res, next) => {
+  
+    const tempPath = req.file.path;
+    fs.rename(tempPath, req.file.destination + "/" + req.file.originalname, function (err) {
+      if (err) {
+        res.send(err)
+      }
+    })
+  
+
+  const BODY = req.body;
+  const FILE = req.file;
+  let title = BODY.title
+  Article.updateOne({ title: title }, {
+    $set: {
+      title: BODY.title,
+      text: BODY.text,
+      pic: '/images/articles/' + FILE.originalname,
+      date: time()
+
+    }
+  }, (err, result) => {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log("Post updated successfully!");
+      res.redirect('/users/articles')
+    }
+  })
+})
 
 
 
