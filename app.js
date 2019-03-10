@@ -5,8 +5,10 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const multer = require('multer')
 // const cors = require('cors')
 mongoose.connect("mongodb://localhost:27017/blog")
+
 
 
 
@@ -58,5 +60,8 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+
 
 module.exports = app;
