@@ -30,13 +30,13 @@ function time() {
 /////sign up//////
 
 router.post('/register', upload.single('avatar'), function (req, res, next) {
-  // console.log(req.body)
-  // const tempPath = req.file.path;
-  // fs.rename(tempPath, req.file.destination + "/" + req.file.originalname, function (err) {
-  //   if (err) {
-  //     res.send(err)
-  //   }
-  // })
+  console.log(req.body)
+  const tempPath = req.file.path;
+  fs.rename(tempPath, req.file.destination + "/" + req.file.originalname, function (err) {
+    if (err) {
+      res.send(err)
+    }
+  })
   const BODY = req.body;
   const FILE = req.file;
 
@@ -48,7 +48,7 @@ router.post('/register', upload.single('avatar'), function (req, res, next) {
     username: BODY.username,
     password: BODY.password,
     gender: BODY.gender,
-    // avatar: 'images/users/' + FILE.originalname,
+    avatar: 'images/users/' + FILE.originalname,
     role: 2
   }
 
