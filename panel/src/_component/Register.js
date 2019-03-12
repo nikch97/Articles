@@ -15,18 +15,29 @@ class Register extends Component {
             username: '',
             password: '',
             gender: '',
-            // avatar:''
+            avatar:null
         }
         this.onChange = this.onChange.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
+        this.handle = this.handle.bind(this)
     }
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value })
     }
 
+    handle(e) {
+        let avatar = e.target.files[0]
+        this.setState({ avatar: avatar })
+        console.log(e.target.files)
+    }
+
 
     onSubmit(e){
         e.preventDefault()
+        let avatar = this.state.avatar
+
+        let formdata = new FormData()
+        formdata.append('avatar',avatar)
         const newUser = {
             username: this.state.username,
             password: this.state.password,
@@ -34,10 +45,9 @@ class Register extends Component {
             family: this.state.family,
             mobile: this.state.mobile,
             gender: this.state.gender,
-            // avatar: this.state.avatar
         }
 
-        register(newUser)
+        register(newUser,formdata)
             .then(res => {
                 if (res) {
                     this.props.history.push(`/`)  
@@ -45,7 +55,8 @@ class Register extends Component {
             })
     }
 
-    
+
+  
     render() {
         return (
             <div className="container-login100" style={style}>
@@ -104,9 +115,8 @@ class Register extends Component {
                             <span className="focus-input100"></span>
                         </div>
                         <div className="validate-input " data-validate="Enter username">
-                            <span className="sp mx-5">Choose an avatar: </span> <input type="file" className="py-2" name="avatar" id=""
-                                value={this.state.avatar}
-                                onChange={this.onChange}
+                            <span className="sp mx-5">Choose an avatar: </span> <input type="file" className="py-2" name="avatar" id=""                               
+                                onChange={this.handle}
                             />
                             <span className="focus-input100"></span>
                         </div>
