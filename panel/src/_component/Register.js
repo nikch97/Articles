@@ -3,48 +3,49 @@ import { register } from "./UserFunctions"
 import {Link} from 'react-router-dom'
 
 const style = {
-    backgroundImage: 'url(./images/bg.jpg)'
+    backgroundImage: 'url(/images/bg.jpg)'
 };
 class Register extends Component {
-    state = {
-        name: '',
-        family: '',
-        mobile: '',
-        username: '',
-        password: '',
-        gender: '',
-        avatar: ''
+    constructor() {
+        super()
+        this.state = {
+            name: '',
+            family: '',
+            mobile: '',
+            username: '',
+            password: '',
+            gender: '',
+            // avatar:''
+        }
+        this.onChange = this.onChange.bind(this)
+        this.onSubmit = this.onSubmit.bind(this)
+    }
+    onChange(e) {
+        this.setState({ [e.target.name]: e.target.value })
     }
 
-    onChange = ({ target: { name, value, type, checked } }) => {
-        if (type === "radio") {
-            this.setState({ [name]: checked })
-        }
-        else {
-            this.setState({ [name]: value })
-        }
-    }
 
-
-    onSubmit = (e) => {
+    onSubmit(e){
         e.preventDefault()
-        const user = {
+        const newUser = {
             username: this.state.username,
             password: this.state.password,
             name: this.state.name,
             family: this.state.family,
             mobile: this.state.mobile,
             gender: this.state.gender,
-            avatar: this.state.avatar
+            // avatar: this.state.avatar
         }
 
-        register(user)
+        register(newUser)
             .then(res => {
-
-                this.props.history.push(`/login`)
+                if (res) {
+                    this.props.history.push(`/`)  
+                }             
             })
     }
 
+    
     render() {
         return (
             <div className="container-login100" style={style}>
@@ -79,8 +80,9 @@ class Register extends Component {
                         </div>
 
                         <div className="wrap-reg-input100 validate-input m-b-25" data-validate="Enter password">
-                            <input className="input100" type="password" name="pass" placeholder="password"
+                            <input className="input100" type="password" name="password" placeholder="password"
                                 onChange={this.onChange}
+                                value={this.state.password}
                             />
                             <span className="focus-input100"></span>
                         </div>
@@ -93,7 +95,9 @@ class Register extends Component {
                             <span className="focus-input100"></span>
                         </div>
                         <div className="wrap-reg-input100 validate-input m-b-20 py-2 pr-1" data-validate="Enter username">
-                            <select className="form-control border-0" name="gender">
+                            <select className="form-control border-0" name="gender"
+                                value={this.state.gender}
+                                onChange={this.onChange}>
                                 <option value="female">Female</option>
                                 <option value="male">Male</option>
                             </select>
@@ -101,13 +105,14 @@ class Register extends Component {
                         </div>
                         <div className="validate-input " data-validate="Enter username">
                             <span className="sp mx-5">Choose an avatar: </span> <input type="file" className="py-2" name="avatar" id=""
-                                checked={this.state.avatar}
+                                value={this.state.avatar}
                                 onChange={this.onChange}
                             />
                             <span className="focus-input100"></span>
                         </div>
+                       
                         <div className="container-login100-form-btn">
-                            <button className="login100-form-btn my-4" type="submit" onSubmit={this.onSubmit}>
+                            <button className="login100-form-btn my-4" type="submit">
                                 Sign Up
 					</button>
                         </div>
