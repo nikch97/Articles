@@ -8,7 +8,7 @@ export const register = newUser => {
             mobile: newUser.mobile,
             username: newUser.username,
             password: newUser.password,
-            gender: newUser.gender
+            gender: newUser.gender,
             // avatar: 'images/users/' + FILE.originalname,
         })
         .then(res => {

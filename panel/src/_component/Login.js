@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { login } from "./UserFunctions"
 import {Link} from 'react-router-dom'
-import Axios from 'axios';
 
 const style = {
-    backgroundImage: 'url(./public/images/bg.jpg)'
+    backgroundImage: 'url(/images/bg.jpg)'
 };
 
 class Login extends Component {
