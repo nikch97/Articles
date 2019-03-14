@@ -4,6 +4,7 @@ const path = require('path');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const bodyParser = require('body-parser');
 
 const fs = require('fs')
 const multer = require('multer')
@@ -13,6 +14,10 @@ const User = require('../models/users')
 const Article = require('../models/articles')
 router.use(cors())
 process.env.SECRET_KEY = 'secret'
+
+router.use(bodyParser());
+router.use(bodyParser.urlencoded({ 'extended': 'false' }));
+router.use(bodyParser.json())
 
 
 /* GET users listing. */
@@ -49,7 +54,7 @@ router.post('/register', upload.single('avatar'), function (req, res, next) {
     username: BODY.username,
     password: BODY.password,
     gender: BODY.gender,
-    avatar: 'images/users/' + FILE.originalname,
+    avatar: '/images/users/' + FILE.originalname,
     role: 2
   }
 
@@ -92,7 +97,11 @@ router.post('/login', function (req, res) {
             _id: user._id,
             name: user.name,
             family: user.family,
-            username: user.username
+            mobile: user.mobile,
+            username: user.username,
+            password: user.password,
+            gender: user.gender,
+            avatar: user.avatar
           }
           let token = jwt.sign(payLoad, process.env.SECRET_KEY, {
             expiresIn: 1440
@@ -115,6 +124,18 @@ router.post('/login', function (req, res) {
 router.get('/profile', (req, res) => {
   //get data from front end local storage
   var decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
+  // if (decoded.role == 1) {
+  //   User.find({})
+  //     .then(people => {
+  //       if (people) {
+  //         res.json(people)
+  //   }
+  //     })
+  //     .catch(err => {
+  //       res.send('error: ' + err)
+  //     })
+  // }
+  
   User.findOne({
     _id: decoded._id
   })
@@ -131,20 +152,7 @@ router.get('/profile', (req, res) => {
 })
 
 router.post('/new-article', artload.single('file'), function (req, res, next) {
-  // var decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
-  // User.findOne({
-  //   _id: decoded._id
-  // })
-  //   .then(user => {
-  //     if (user) {
-  //       res.json(user)
-  //     } else {
-  //       res.send("User does not exist!")
-  //     }
-  //   })
-  //   .catch(err => {
-  //     res.send('error: ' + err)
-  //   })
+ 
   console.log(req.body)
   const tempPath = req.file.path;
   fs.rename(tempPath, req.file.destination + "/" + req.file.originalname, function (err) {
@@ -158,8 +166,7 @@ router.post('/new-article', artload.single('file'), function (req, res, next) {
   const articleData = {
 
     title: BODY.title,
-    // author: decoded.username,
-    // username: BODY.username,
+    // username: ,
     text: BODY.text,
     pic: '/images/articles/' + FILE.originalname,
     date: time()

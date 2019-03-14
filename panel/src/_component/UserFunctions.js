@@ -1,24 +1,17 @@
 import axios from "axios";
-let formdata = new FormData()
 
-export const register = (newUser,formdata) => {
+
+export const register = (formdata) => {
     return axios
-        .post('/users/register', {
-            name: newUser.name,
-            family: newUser.family,
-            mobile: newUser.mobile,
-            username: newUser.username,
-            password: newUser.password,
-            gender: newUser.gender,
-            avatar:formdata
-        })
+        .post('/users/register', formdata)
         .then(res => {
             if (res) {
               console.log("registerd!")
           }
         })
         .catch(err => {
-            console.log(err)
+            console.log(formdata+err)
+
         })
 }
 
@@ -38,3 +31,4 @@ export const login = user => {
             console.log(err)
         })
 }
+

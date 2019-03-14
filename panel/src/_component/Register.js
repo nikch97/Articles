@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { register } from "./UserFunctions"
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const style = {
     backgroundImage: 'url(/images/bg.jpg)'
@@ -15,7 +15,7 @@ class Register extends Component {
             username: '',
             password: '',
             gender: '',
-            avatar:null
+            avatar: null
         }
         this.onChange = this.onChange.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
@@ -32,31 +32,35 @@ class Register extends Component {
     }
 
 
-    onSubmit(e){
+    onSubmit(e) {
         e.preventDefault()
         let avatar = this.state.avatar
-
+        let username= this.state.username
+        let password= this.state.password
+        let name =this.state.name
+        let family= this.state.family
+        let mobile= this.state.mobile
+        let gender= this.state.gender
         let formdata = new FormData()
-        formdata.append('avatar',avatar)
-        const newUser = {
-            username: this.state.username,
-            password: this.state.password,
-            name: this.state.name,
-            family: this.state.family,
-            mobile: this.state.mobile,
-            gender: this.state.gender,
-        }
+        formdata.append('avatar', avatar)
+        formdata.append('username', username)
+        formdata.append('password', password)
+        formdata.append('name', name)
+        formdata.append('family', family)
+        formdata.append('mobile', mobile)
+        formdata.append('gender', gender)
+ 
 
-        register(newUser,formdata)
+        register(formdata)
             .then(res => {
                 if (res) {
-                    this.props.history.push(`/`)  
-                }             
+                    this.props.history.push(`/`)
+                }
             })
     }
 
 
-  
+
     render() {
         return (
             <div className="container-login100" style={style}>
@@ -115,12 +119,12 @@ class Register extends Component {
                             <span className="focus-input100"></span>
                         </div>
                         <div className="validate-input " data-validate="Enter username">
-                            <span className="sp mx-5">Choose an avatar: </span> <input type="file" className="py-2" name="avatar" id=""                               
+                            <span className="sp mx-5">Choose an avatar: </span> <input type="file" className="py-2" name="avatar" id=""
                                 onChange={this.handle}
                             />
                             <span className="focus-input100"></span>
                         </div>
-                       
+
                         <div className="container-login100-form-btn">
                             <button className="login100-form-btn my-4" type="submit">
                                 Sign Up

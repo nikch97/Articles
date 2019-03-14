@@ -9,7 +9,7 @@ const article = new Schema({
     },
     username: {
         type: String,
-        // ref: 'users'
+        // required: true
     },
 
     date: String,
