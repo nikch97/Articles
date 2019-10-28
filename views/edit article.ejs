@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/stylesheets/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/main.css" rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/util.css" rel="stylesheet">
-   <script src="/javascripts/jquery-3.3.1.min.js"></script>
+    <script src="/javascripts/jquery-3.3.1.min.js"></script>
 
 </head>
 
@@ -80,15 +80,16 @@
         <section class="blog_area p_120">
             <div class="container-fluid">
 
-                <div class="container-login100" >
+                <div class="container-login100">
                     <div p-l-55 p-r-55 p-t-80 p-b-30">
-                        <form class="login-100-form validate-form" action="" method="POST" enctype="multipart/form-data">
+                        <form class="login-100-form validate-form" action="" method="POST"
+                            enctype="multipart/form-data">
                             <span class="login100-form-title p-b-37">
                                 Edit Your Article
                             </span>
 
                             <div class="wrap-input100 validate-input m-b-20" data-validate="Enter username">
-                                <input class="input100" type="text" name="title"  value="<%=data.title%>">
+                                <input class="input100" type="text" name="title" value="<%=data.title%>">
                                 <span class="focus-input100"></span>
                             </div>
 
@@ -98,26 +99,27 @@
                             </div>
 
                             <div class="wrap-input100 validate-input m-b-20" data-validate="Enter username">
-                                <textarea  class="wrap-input100 p-3" name="text" cols="69" rows="10"><%=data.text%></textarea>
+                                <textarea class="wrap-input100 p-3" name="text" cols="69"
+                                    rows="10"><%=data.text%></textarea>
                                 <span class="focus-input100"></span>
                             </div>
 
-                           
-                            <div class="wrap-input100 validate-input " data-validate="Enter username">
-                                <span class="sp mx-5">Choose a picture: </span> <input type="file" class="py-2"
+
+                            <div class="" data-validate="Enter username">
+                                <!-- <span class="sp mx-5">Choose a picture: </span> <input type="file" class="py-2"
                                     name="file" id="file" value=""/>
-                                <span class="focus-input100"></span>
+                                <span class="focus-input100"></span> -->
+                                <img style="width:200px" src="<%=data.pic%>" />
+                                
+                                <a href="#" class="genric-btn primary circle arrow" target="_blank">Add photo</a>
+                                <a href="#" class="genric-btn danger circle arrow">Delete photo</a>
                             </div>
                             <div class="container-login100-form-btn">
                                 <button class="login100-form-btn my-4" type="submit">
                                     Send your article
                                 </button>
                             </div>
-
-
                         </form>
-
-
                     </div>
                 </div>
 
@@ -202,15 +204,15 @@
     </div>
     <script>
         function time() {
-                let today = new Date();
-                let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-                let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-                let dateTime = date + ' ' + time;
-                return dateTime;
-            }
+            let today = new Date();
+            let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+            let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            let dateTime = date + ' ' + time;
+            return dateTime;
+        }
         document.getElementById("date").value = time();
 
-       
+
     </script>
 </body>
 
